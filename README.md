@@ -1,5 +1,7 @@
 # http server with ruby
 
+### The TCP server & client
+
 First start the server by running `ruby tcp_server.rb`, and then start the client in a separate terminal tab or window by running `ruby tcp_client.rb` to receive the server’s message.
 
 
