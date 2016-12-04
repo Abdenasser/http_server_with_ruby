@@ -1,9 +1,9 @@
 require 'socket'
 
-app = Proc.new do
-  ['200', {'Content-Type' => 'text/html'}, ["Hello world! The time is #{Time.now}"]]
-end
+require 'rack'
+require 'rack/lobster'
 
+app = Rack::Lobster.new
 server = TCPServer.new 5678
 
 while session = server.accept
