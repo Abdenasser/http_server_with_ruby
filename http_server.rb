@@ -18,8 +18,12 @@ while session = server.accept
   headers.each do |key, value|
     session.print "#{key}: #{value}\r\n"
   end
-  
-  session.print "Hello world! The time is #{Time.now}" #4
+  # 4
+  session.print "\r\n"
+  # 5
+  body.each do |part|
+    session.print part
+  end
 
   session.close
 end
