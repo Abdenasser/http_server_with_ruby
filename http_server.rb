@@ -14,8 +14,11 @@ while session = server.accept
   status, headers, body = app.call({})
   # 2
   session.print "HTTP/1.1 #{status}\r\n"
-  session.print "Content-Type: text/html\r\n" # 2
-  session.print "\r\n" # 3
+  # 3
+  headers.each do |key, value|
+    session.print "#{key}: #{value}\r\n"
+  end
+  
   session.print "Hello world! The time is #{Time.now}" #4
 
   session.close
