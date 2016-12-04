@@ -1,5 +1,4 @@
 require 'socket'
-
 require 'rack'
 require 'rack/lobster'
 
@@ -11,19 +10,24 @@ while session = server.accept
   puts request
 
   # 1
-  status, headers, body = app.call({})
+  method, full_path = request.split(' ')
   # 2
-  session.print "HTTP/1.1 #{status}\r\n"
+  path, query = full_path.split('?')
+
   # 3
+  status, headers, body = app.call({
+    'REQUEST_METHOD' => method,
+    'PATH_INFO' => path,
+    'QUERY_STRING' => query
+  })
+
+  session.print "HTTP/1.1 #{status}\r\n"
   headers.each do |key, value|
     session.print "#{key}: #{value}\r\n"
   end
-  # 4
   session.print "\r\n"
-  # 5
   body.each do |part|
     session.print part
   end
-
   session.close
 end
