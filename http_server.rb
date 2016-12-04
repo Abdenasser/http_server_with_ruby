@@ -1,4 +1,9 @@
 require 'socket'
+
+app = Proc.new do
+  ['200', {'Content-Type' => 'text/html'}, ["Hello world! The time is #{Time.now}"]]
+end
+
 server = TCPServer.new 5678
 
 while session = server.accept
